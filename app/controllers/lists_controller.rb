@@ -5,12 +5,12 @@ class ListsController < ApplicationController
   end
   
   def create
-    #データ受け取り作成のためのインスタンス作成
-    list = List.new(list_params)
-    #データベース保存のためのsaveメソッド
-    list.save
-    #トップ画面へリダイレクト
-    redirect_to list_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id)
+    else
+      render :new
+    end
   end
   
   def index
